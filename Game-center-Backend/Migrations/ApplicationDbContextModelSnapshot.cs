@@ -61,7 +61,7 @@ namespace Game_center_Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<Guid?>("UserEntityId")
+                    b.Property<Guid>("GameForID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("gameScore")
@@ -76,21 +76,7 @@ namespace Game_center_Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserEntityId");
-
-                    b.ToTable("games");
-                });
-
-            modelBuilder.Entity("Game_center_Backend.Models.games", b =>
-                {
-                    b.HasOne("Game_center_Backend.Models.UserEntity", null)
-                        .WithMany("Games")
-                        .HasForeignKey("UserEntityId");
-                });
-
-            modelBuilder.Entity("Game_center_Backend.Models.UserEntity", b =>
-                {
-                    b.Navigation("Games");
+                    b.ToTable("Games");
                 });
 #pragma warning restore 612, 618
         }

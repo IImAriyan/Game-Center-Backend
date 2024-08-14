@@ -18,4 +18,9 @@ public class games
     [Display(Name = "Game Score")]
     [MaxLength(50)]
     public string gameScore { get; set; }
+    
+    
+    [Required]
+    [Display(Name = "GameForID")]
+    public Guid GameForID { get; set; }
 }

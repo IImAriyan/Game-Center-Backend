@@ -27,9 +27,7 @@ public class UserEntity
     [MaxLength(300)]
     public string Email { get; set; }
     
-    [Display(Name = "Games")]
-    [MaxLength(300)]
-    public games[] Games { get; set; }
+
     
     [Required(ErrorMessage = "adminRole is Required !!!")]
     [Display(Name = "adminRole")]
