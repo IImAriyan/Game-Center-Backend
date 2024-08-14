@@ -5,7 +5,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Game_center_Backend.Models;
 
 [Table("Users")]
-public class User
+public class UserEntity
 {
     [Required]
     [Key] 
