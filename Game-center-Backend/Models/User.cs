@@ -29,9 +29,10 @@ public class User
     
     [Display(Name = "Games")]
     [MaxLength(300)]
-    public string Games { get; set; }
+    public games[] Games { get; set; }
     
-    [Required]
+    [Required(ErrorMessage = "adminRole is Required !!!")]
+    [Display(Name = "adminRole")]
     [MaxLength(40)]
     public string adminRole { get; set; }
     
