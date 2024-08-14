@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game-center-Backend", "Game-center-Backend\Game-center-Backend.csproj", "{A1D231F2-A7EE-43B3-93DC-0A1083D7A37E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1D231F2-A7EE-43B3-93DC-0A1083D7A37E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1D231F2-A7EE-43B3-93DC-0A1083D7A37E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1D231F2-A7EE-43B3-93DC-0A1083D7A37E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1D231F2-A7EE-43B3-93DC-0A1083D7A37E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
