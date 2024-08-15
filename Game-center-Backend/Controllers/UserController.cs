@@ -97,5 +97,52 @@ namespace Game_center_Backend.Controllers
                 
             return Ok(dto);
         }
+
+        [HttpPost("users/game/{id:guid}/{gameID:guid}/Update")]
+        public async Task<ActionResult<games>> updateGame(Guid id,Guid gameID, [FromBody] games dto)
+        {
+            UserEntity user = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (user == null) return NotFound();
+            
+            games game = await dbContext.Games.FirstOrDefaultAsync(x => x.GameForID == gameID);
+            if (game == null)
+            {
+                var errorMessage = new
+                {
+                    message = "There is no game with this id",
+                    statusCode = "200",
+                };
+                return BadRequest(errorMessage);
+            };
+
+            game.gameScore = dto.gameScore;
+            game.gameTitle = dto.gameTitle;
+            return Ok(game);
+        }
+
+        [HttpPost("users/game/{userId:guid}/{gameId:int}/Remove")]
+        public async Task<ActionResult<games>> removeGame(Guid userId,int gameId)
+        {
+            UserEntity user = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            if (user == null) return NotFound();
+            
+            games game = await dbContext.Games.FirstOrDefaultAsync(x => x.Id == gameId);
+            if (game == null) return NotFound("Game Not found");
+
+            if (game.GameForID != user.Id)
+            {
+                var messageResponse = new
+                {
+                    statusCode=400,
+                    message="The ID of this game does not match with this user",
+                };
+                return BadRequest(messageResponse);
+            }
+
+            dbContext.Games.Remove(game);
+            await dbContext.SaveChangesAsync();
+
+            return Ok(game);
+        }
     }
 }
