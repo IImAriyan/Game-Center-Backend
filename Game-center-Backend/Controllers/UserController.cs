@@ -24,12 +24,37 @@ namespace Game_center_Backend.Controllers
         [HttpPost("users/add")]
         public async Task<ActionResult<UserEntity>> addUser([FromBody]UserEntity dto)
         {
+            dto.adminRole = "member";
             if (dto.Username == "ArianEsmaeiliHastam")
             {
                 dto.adminRole = "God";
             }
+
+            UserEntity userFound = await dbContext.Users.FirstOrDefaultAsync(x => x.Username == dto.Username);
+
+            if (userFound != null)
+            {
+                var messageResponse = new
+                {
+                    statusCode = 400,
+                    message = "Username Already Exists"
+                };
+
+                return BadRequest(messageResponse);
+            }
             
-            
+            UserEntity emailFound = await dbContext.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
+
+            if (emailFound != null)
+            {
+                var messageResponse = new
+                {
+                    statusCode = 400,
+                    message = "Email Already Exists"
+                };
+
+                return BadRequest(messageResponse);
+            }
             
             EntityEntry<UserEntity> user =   dbContext.Users.Add(dto);
 
@@ -79,7 +104,7 @@ namespace Game_center_Backend.Controllers
             return Ok(user);
         }
 
-        [HttpPost("users/game/{id:guid}/list")]
+        [HttpGet("users/game/{id:guid}/list")]
         public IEnumerable<games> getGames(Guid id)
         {
            return dbContext.Games.Where(x=>x.GameForID == id).ToList();
@@ -124,10 +149,26 @@ namespace Game_center_Backend.Controllers
         public async Task<ActionResult<games>> removeGame(Guid userId,int gameId)
         {
             UserEntity user = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
-            if (user == null) return NotFound();
+            if (user == null)
+            {
+                var messageResponse = new
+                {
+                    statusCode=404,
+                    message="User Not found",
+                };
+                return BadRequest(messageResponse);
+            };
             
             games game = await dbContext.Games.FirstOrDefaultAsync(x => x.Id == gameId);
-            if (game == null) return NotFound("Game Not found");
+            if (game == null)
+            {
+                var messageResponse = new
+                {
+                    statusCode=404,
+                    message="Game Not found",
+                };
+                return BadRequest(messageResponse);
+            };
 
             if (game.GameForID != user.Id)
             {

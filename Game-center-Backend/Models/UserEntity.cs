@@ -26,12 +26,12 @@ public class UserEntity
     [Display(Name = "Email")]
     [MaxLength(300)]
     public string Email { get; set; }
-    
 
-    
+
+
     [Required(ErrorMessage = "adminRole is Required !!!")]
     [Display(Name = "adminRole")]
     [MaxLength(40)]
     public string adminRole { get; set; }
-    
+
 }
