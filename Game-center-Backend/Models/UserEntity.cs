@@ -44,7 +44,7 @@ public class UserEntity
     
     [Display(Name = "age")]
     [MaxLength(100)]
-    public int age { get; set; }
+    public string age { get; set; }
 
     [Display(Name = "telephone")]
     [MaxLength(200)]

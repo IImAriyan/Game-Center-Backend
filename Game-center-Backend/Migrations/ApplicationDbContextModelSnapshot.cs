@@ -58,9 +58,10 @@ namespace Game_center_Backend.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
-                    b.Property<int>("age")
+                    b.Property<string>("age")
+                        .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("coins")
                         .IsRequired()

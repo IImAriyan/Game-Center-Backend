@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Game_center_Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class Arian : Migration
+    public partial class Database : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,7 +37,7 @@ namespace Game_center_Backend.Migrations
                     adminRole = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     firstName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     lastName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    age = table.Column<int>(type: "int", maxLength: 100, nullable: false),
+                    age = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     telephone = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     nationalCode = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     gender = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
