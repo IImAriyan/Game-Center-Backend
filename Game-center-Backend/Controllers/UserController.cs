@@ -98,6 +98,17 @@ namespace Game_center_Backend.Controllers
             user.Password = dto.Password;
             user.adminRole = dto.adminRole;
             user.Email = dto.Email;
+            user.coins = dto.coins;
+            user.age = dto.age;
+            user.gender = dto.gender;
+            user.firstName = dto.firstName;
+            user.lastName = dto.lastName;
+            user.nationalCode = dto.nationalCode;
+            user.telephone = dto.telephone;
+            
+            user.accountLocked = dto.accountLocked;
+            user.accountBanned = dto.accountBanned;
+            
 
             await dbContext.SaveChangesAsync();
             
