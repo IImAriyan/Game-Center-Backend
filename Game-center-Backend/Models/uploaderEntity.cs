@@ -2,5 +2,5 @@
 
 public class uploaderEntity
 {
-    
+    public IFormFile file { get; set; }
 }
