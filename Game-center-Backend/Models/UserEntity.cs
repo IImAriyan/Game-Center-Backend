@@ -65,6 +65,14 @@ public class UserEntity
     [Display(Name = "coins")]
     [MaxLength(200)]
     public string coins { get; set; }
+    
+    [Display(Name = "score")]
+    [MaxLength(200)]
+    public string score { get; set; }
+    
+    [Display(Name = "avatar")]
+    [MaxLength(200)]
+    public string avatar { get; set; }
 
     [Display(Name = "accountBanned")]
     [MaxLength(200)]

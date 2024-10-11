@@ -1,11 +1,13 @@
 using Game_center_Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-
+using Services;
 
 namespace Game_center_Backend.Controllers
 {
+    
     [Route("api")]
     [ApiController]
     public class UserController(ApplicationDbContext dbContext) : ControllerBase
@@ -25,6 +27,8 @@ namespace Game_center_Backend.Controllers
         public async Task<ActionResult<UserEntity>> addUser([FromBody]UserEntity dto)
         {
             dto.adminRole = "member";
+            dto.avatar = "NotFound";
+
             if (dto.Username == "ArianEsmaeiliHastam")
             {
                 dto.adminRole = "God";
@@ -59,11 +63,19 @@ namespace Game_center_Backend.Controllers
             EntityEntry<UserEntity> user =   dbContext.Users.Add(dto);
 
             await dbContext.SaveChangesAsync();
+            var tokenx = new JWTToken().GenerateJWTToken(dto);
 
-            return Ok(user);
+            return Ok(new {token=tokenx});
         }
-        
+
+
+        [HttpGet("test")]
+        public DateTime test()
+        {
+            return DateTime.Now;
+        }
         // Remove User By ID
+
         [HttpPost("users/remove/{id:guid}")]
         public async Task<ActionResult<UserEntity>> removeUser(Guid id)
         {
@@ -108,7 +120,6 @@ namespace Game_center_Backend.Controllers
             
             user.accountLocked = dto.accountLocked;
             user.accountBanned = dto.accountBanned;
-            
 
             await dbContext.SaveChangesAsync();
             
@@ -119,6 +130,14 @@ namespace Game_center_Backend.Controllers
         public IEnumerable<games> getGames(Guid id)
         {
            return dbContext.Games.Where(x=>x.GameForID == id).ToList();
+        }
+
+        [HttpPost("users/avatar")]
+        public async Task<ActionResult> getAvatar([FromBody] Guid id)
+        {
+            UserEntity user = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+            return Ok(new { avatar = user.avatar });
         }
         
         [HttpPost("users/game/{id:guid}/Add")]
@@ -180,6 +199,8 @@ namespace Game_center_Backend.Controllers
                 };
                 return BadRequest(messageResponse);
             };
+
+            
 
             if (game.GameForID != user.Id)
             {
